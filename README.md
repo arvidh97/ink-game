@@ -9,10 +9,10 @@ In LInk, user will be able to:
 - Have access to a nav bar where sounds can be muted and have another look at instructions
 
 I intend to use the following technologies: 
--Canvas to render background, character, ink pallets, and all platforms
--Webpack and Babel to bundle all my code 
--npm to manage project dependencies
--P5.js to allow users to draw (future implementation)
+- Canvas to render background, character, ink pallets, and all platforms
+- Webpack and Babel to bundle all my code 
+- npm to manage project dependencies
+- P5.js to allow users to draw (future implementation)
 
 Between Friday and the weekend I hope to be able to render the player and allow them to move and have a gravity aspect to it (collision dectection with platforms)
 
