@@ -5,11 +5,19 @@
 // }
 
 body {
-    background: white;
+    // margin: 0;
+    background: rgb(210, 148, 148);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
 }
 
 // div {
-//     text-align: center;
-//     margin-top: auto;
-//     margin-bottom: auto;
+//     position:relative; 
+//     top: 30px;
+//     bottom: 2px;
+//     left: 134px;
+//     right: 134px;
 // }
