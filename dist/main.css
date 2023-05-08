@@ -1,11 +1,27 @@
 /*!*************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
+@font-face {
+  font-family: "Brush Font";
+  src: url("../assests/UkiyoMindDEMO-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
-  background: rgb(210, 148, 148);
+  background: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 85vh;
+}
+
+h1 {
+  color: whitesmoke;
+  font-family: "Brush Font";
+  font-size: 5000;
+}
+
+#l {
+  font-style: italic;
 }

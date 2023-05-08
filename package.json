@@ -26,5 +26,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "file-loader": "^6.2.0"
+  }
 }

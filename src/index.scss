@@ -1,4 +1,10 @@
 // @import "./styles/example.scss";
+@font-face {
+    font-family: "Brush Font";
+    src: url("../assests/UkiyoMindDEMO-Regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 // #main {
 //     color: $color
@@ -6,12 +12,22 @@
 
 body {
     // margin: 0;
-    background: rgb(210, 148, 148);
+    background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 85vh;
+}
+
+h1 {
+    color: whitesmoke;
+    font-family: "Brush Font";
+    font-size: 5000;
+
+}
+#l {
+    font-style: italic;
 }
 
 // div {
