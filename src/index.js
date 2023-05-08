@@ -19,51 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = 950
     canvas.height = 502
 
-    // const CONSTANTS = {
-    //     gravity: 0.4,
-    // }
-
-    // class Player {
-    //     constructor(position) {
-    //         this.position = position
-    //         this.velocity = {
-    //             x: 0,
-    //             y: 1
-    //         }
-    //         this.width = 50
-    //         this.height = 50
-    //         this.isJumping = false
-    //     }
-    
-    //     draw() {
-    //         ctx.fillStyle = 'red'
-    //         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-    //     }
-
-    //     update() {
-    //         this.draw();
-
-    //         // this.position.x += this.velocity.x
-    //         if (this.position.x + this.velocity.x >= 0 && this.position.x + this.velocity.x + this.width <= canvas.width) {
-    //             this.position.x += this.velocity.x;
-    //           }
-            
-
-    //         this.position.y += this.velocity.y
-    //         if (this.position.y + this.height + this.velocity.y < canvas.height)
-    //             {this.velocity.y += CONSTANTS.gravity}
-    //         else 
-    //             {this.velocity.y = 0; this.isJumping = false}
-    //     }
-
-    //     jump() {
-    //         if (!this.isJumping) {
-    //             this.velocity.y = -10
-    //             this.isJumping = true
-    //         }
-    //     }
-    // }
-
     const player = new Player({
         x: 0,
         y: 0,
@@ -83,10 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         new Platform({x: 855, y: 427}, ctx, createImage(concreteImage)),
         new Platform({x: 1140, y: 427}, ctx, createImage(concreteImage)),
         new Platform({x: 1425, y: 427}, ctx, createImage(concreteImage))
-        ]
-
-    const scenery = new Scenery({x: 0, y: 0}, ctx, createImage(skylineImage), {width: 1500, height: 502})
-    const toonBlueEyes = new Scenery({x: 600, y: 50}, ctx, createImage(toonblueeyesImage), {width: 150, height: 150})
+    ]
+    
+    const scenery = [
+        new Scenery({x: 0, y: 0}, ctx, createImage(skylineImage), {width: 1600, height: 502}),
+        new Scenery({x: 750, y: 50}, ctx, createImage(toonblueeyesImage), {width: 150, height: 150})
+    ]
 
     const keys = {
         ArrowRight: {
@@ -106,8 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(animate)
             ctx.fillStyle = 'lime';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            scenery.draw();
-            toonBlueEyes.draw();
+            // scenery.draw();
+            // toonBlueEyes.draw();
+            scenery.forEach(scene => {
+                scene.draw();
+            })
             platforms.forEach(platform => {
                 platform.draw(); 
             }) 
@@ -126,12 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     scrollOffset += 4
                     platforms.forEach(platform => {
                         platform.position.x -= 4
-                    }) }
+                    }) 
+                scenery.forEach(scene => {
+                    scene.position.x -= 3
+                })}
                 else if (keys.ArrowLeft.pressed) {
                     scrollOffset -= 4
                     platforms.forEach(platform => {
                         platform.position.x += 4
-                    }) }
+                    }) 
+                scenery.forEach(scene => {
+                    scene.position.x +=3
+                })}
             }
 
             console.log(scrollOffset)
