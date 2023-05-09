@@ -13,6 +13,7 @@ class Player {
         this.width = 50
         this.height = 50
         this.isJumping = false
+        this.isAlive = true
         this.canvas = canvas
         this.ctx = ctx
     }
@@ -41,6 +42,14 @@ class Player {
         if (!this.isJumping) {
             this.velocity.y = -10
             this.isJumping = true
+        }
+    }
+
+    playerDied() {
+        if (!this.isAlive) {
+            this.position.x = 50
+            this.position.y = 200
+            this.isAlive = true
         }
     }
 }
