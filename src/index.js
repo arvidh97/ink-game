@@ -3,6 +3,7 @@ import Player from './scripts/player';
 import Platform from './scripts/platform';
 import Scenery from './scripts/scenery';
 import Trap from './scripts/trap';
+import Ink from './scripts/ink';
 import concreteImage from '../assests/concrete.png';
 import drywallImage from '../assests/drywall.png';
 import skylineImage from '../assests/cityskyline.png';
@@ -34,26 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return image;
     }
 
-    let platforms = [
-        new Platform({x: -285, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-        new Platform({x: 0, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-        new Platform({x: 285, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-        new Platform({x: 870, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-        new Platform({x: 1155, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-        new Platform({x: 1440, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-
-        new Platform({x: 250, y: 300}, ctx, createImage(drywallImage), {width: 150, height: 45} )
-    ]
-    
-    let scenery = [
-        new Scenery({x: -200, y: 0}, ctx, createImage(skylineImage), {width: 1800, height: 502}),
-        new Scenery({x: 750, y: 50}, ctx, createImage(toonblueeyesImage), {width: 150, height: 150}),
-        
-    ]
-
-    let traps = [
-        new Trap({x: 590, y: 450}, ctx, createImage(spikesImage), {width: 275, height: 50})
-    ]
+    let platforms 
+    let scenery
+    let traps
+    let inks
 
     let keys = {
         ArrowRight: {
@@ -67,11 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    let scrollOffset = 0; 
+    const maxInkLevel = 100;
+    let inkLevel = 0;
+    let scrollOffset;
 
     function reset() {
+
         platforms = [
-            new Platform({x: -285, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
             new Platform({x: 0, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
             new Platform({x: 285, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
             new Platform({x: 870, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
@@ -91,17 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
             new Trap({x: 585, y: 450}, ctx, createImage(spikesImage), {width: 275, height: 50})
         ]
 
-        keys = {
-            ArrowRight: {
-                pressed: false,
-            },
-            ArrowLeft: {
-                pressed: false,
-            },
-            ArrowUp: {
-                pressed: false,
-            }
-        }
+        inks = [
+            new Ink({x: 275, y: 250}, ctx, {width: 30, height: 30}),
+            new Ink({x: 350, y: 250}, ctx, {width: 30, height: 30})
+        ]
 
         scrollOffset = 0; 
         }
@@ -112,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         traps.forEach(trap => {
           trap.draw();
+        })
+        inks.forEach(ink => {
+            ink.draw();
         })
         platforms.forEach(platform => {
           platform.draw();
@@ -142,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (keys.ArrowRight.pressed && player.position.x < 400) {
                 player.velocity.x = 5
             }
-            else if (keys.ArrowLeft.pressed && player.position.x > 100) {
+            else if ((keys.ArrowLeft.pressed && player.position.x > 100) 
+                    || (keys.ArrowLeft.pressed && scrollOffset === 0 && player.position.x > 0)) {
                 player.velocity.x = -5
             }
             else {
@@ -156,10 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     traps.forEach(trap => {
                         trap.position.x -=4
                     })
+                    inks.forEach(ink => {
+                        ink.position.x -=4
+                    })
                     scenery.forEach(scene => {
                         scene.position.x -= 3
                     })}
-                else if (keys.ArrowLeft.pressed) {
+                else if (keys.ArrowLeft.pressed && scrollOffset > 0) {
                     scrollOffset -= 4
                     platforms.forEach(platform => {
                         platform.position.x += 4
@@ -167,25 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     traps.forEach(trap => {
                         trap.position.x += 4
                     })
+                    inks.forEach(ink => {
+                        ink.position.x +=4
+                    })
                     scenery.forEach(scene => {
                         scene.position.x +=3
                 })}
             }
 
-            console.log(scrollOffset);
-
             if (keys.ArrowUp.pressed) {
                 player.jump()
             }
-
-            // platforms.forEach(platform => {
-            //     if (player.position.y + player.height <= platform.position.y 
-            //         && player.position.y + player.height + player.velocity.y >= platform.position.y
-            //         && player.position.x + player.width >= platform.position.x
-            //         && player.position.x <= platform.position.x + platform.dimensions.width) {
-            //                 player.velocity.y = 0 
-            //                 player.isJumping = false
-            // } }) 
 
             if (collisionDetector(platforms)) {
                 player.velocity.y = 0 
@@ -195,27 +174,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (collisionDetector(traps)) {
                 player.isAlive = false
                 player.playerDied(); 
-                
                 console.log('you lose');
-                gameUpdate(); 
-                player.update();
                 reset();
             }
 
-            // traps.forEach(trap => {
-            //     if (player.position.y + player.height <= trap.position.y 
-            //         && player.position.y + player.height + player.velocity.y >= trap.position.y
-            //         && player.position.x + player.width >= trap.position.x
-            //         && player.position.x <= trap.position.x + trap.dimensions.width) {
-            //             player.isAlive = false
-            //             player.playerDied();
-            //             console.log('you lose');
-            //             gameUpdate(); 
-            //             player.update();
-            // }})
+            for (let i = 0; i < inks.length; i++) {
+                const ink = inks[i];
+                if (player.position.x < ink.position.x + ink.dimensions.width 
+                    && player.position.x + player.width > ink.position.x 
+                    && player.position.y < ink.position.y + ink.dimensions.height
+                    && player.position.y + player.height > ink.position.y) {
+                  console.log("ink touch");
+                  inks.splice(i, 1);
+                  if (inkLevel < maxInkLevel) inkLevel += 10;
+                }
+              }
+              const percentageRemaining = (inkLevel / maxInkLevel) * 100;
+              const inkFull = document.querySelector('.ink-full');
+              inkFull.style.width = `${percentageRemaining}%`;
         }
 
-    animate()
+    reset();
+    animate();
 
     window.addEventListener('keydown', (e) => {
         switch (e.key) {

@@ -16,6 +16,7 @@ class Player {
         this.isAlive = true
         this.canvas = canvas
         this.ctx = ctx
+        this.inkMeter = 0
     }
 
     draw() {
