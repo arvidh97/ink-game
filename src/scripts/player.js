@@ -4,30 +4,37 @@ const CONSTANTS = {
 
 class Player {
     
-    constructor(position, canvas, ctx) {
+    constructor(position, canvas, ctx, image) {
         this.position = position
         this.velocity = {
             x: 0,
             y: 1
         }
-        this.width = 50
-        this.height = 50
+        this.width = 75
+        this.height = 75
         this.isJumping = false
         this.isAlive = true
         this.canvas = canvas
         this.ctx = ctx
         this.inkMeter = 0
+        this.image = image
+        this.animationFrame = 0
+        this.animationDelay = 0
+        this.hitbox = {
+            x: this.width - 30
+        }
+        this.facing = "right"
     }
 
     draw() {
-        this.ctx.fillStyle = 'red'
-        this.ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // this.ctx.fillStyle = 'red'
+        // this.ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        this.ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
 
     update() {
         this.draw();
 
-        // this.position.x += this.velocity.x
         if (this.position.x + this.velocity.x >= 0 && this.position.x + this.velocity.x + this.width <= this.canvas.width) {
             this.position.x += this.velocity.x;
           }
@@ -41,7 +48,7 @@ class Player {
 
     jump() {
         if (!this.isJumping) {
-            this.velocity.y = -10
+            this.velocity.y = -15
             this.isJumping = true
         }
     }

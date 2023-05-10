@@ -16,6 +16,11 @@ body {
   height: 85vh;
 }
 
+#hidden-canvas {
+  position: absolute;
+  top: 83px;
+}
+
 .ink-bar {
   position: absolute;
   top: 100px;
@@ -51,7 +56,6 @@ body {
 h1 {
   color: whitesmoke;
   font-family: "Brush Font";
-  font-size: 5000;
 }
 
 #l {
