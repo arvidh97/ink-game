@@ -4,6 +4,9 @@ import Platform from './scripts/platform';
 import Scenery from './scripts/scenery';
 import Trap from './scripts/trap';
 import Ink from './scripts/ink';
+import InkBullets from "./scripts/ink_bullets"
+import splatOne from '../assests/splat1.png';
+import splatTwo from '../assests/splat2.png';
 import ghostRight1 from '../assests/ghost-right1.png';
 import ghostRight2 from '../assests/ghost-right2.png';
 import ghostLeft1 from '../assests/ghost-left1.png';
@@ -46,6 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
         y: 200,
     }, canvas, ctx, createImage(ghostRight1))
 
+    // function shootInk() {
+    //     if (player.facing === "right" && player.inkMeter >= 10) {
+    //         const inkBullet = new InkBullets({x: player.position.x + 10, y: player.position.y}, hiddenCtx, createImage(splatOne))
+    //         inkBullet.draw();
+    //     }
+    //     else if (player.facing === "left" && player.inkMeter >= 10) {
+    //         const inkBullet = new InkBullets({x: player.position.x - 10, y: player.position.y}, hiddenCtx, createImage(splatTwo))
+    //         inkBullet.draw();
+    //     }
+    // }
+
     let platforms 
     let scenery
     let traps
@@ -59,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
             pressed: false,
         },
         ArrowUp: {
+            pressed: false,
+        },
+        Space: {
             pressed: false,
         }
     }
@@ -75,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
             new Platform({x: 870, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
             new Platform({x: 1155, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
             new Platform({x: 1440, y: 427}, ctx, createImage(concreteImage), {width: 300, height: 75}),
-            new Platform({x: 585, y: 400}, hiddenCtx, createImage(drywallImage), {width: 150, height: 45}),
+            
+            new Platform({x: 650, y: 375}, hiddenCtx, createImage(drywallImage), {width: 150, height: 45}),
 
             new Platform({x: 250, y: 300}, ctx, createImage(drywallImage), {width: 150, height: 45} )
         ]
@@ -139,6 +157,31 @@ document.addEventListener('DOMContentLoaded', () => {
             gameUpdate();
             player.update();
 
+            // if (keys.Space.pressed) {
+            //     if (player.facing === "right" && player.inkMeter >= 10) {
+            //         const inkBullet = new InkBullets({x: player.position.x + 10, y: player.position.y}, hiddenCtx, createImage(splatOne))
+            //         inkBullet.draw();
+            //     }
+            //     else if (player.facing === "left" && player.inkMeter >= 10) {
+            //         const inkBullet = new InkBullets({x: player.position.x - 10, y: player.position.y}, hiddenCtx, createImage(splatTwo))
+            //         inkBullet.draw();
+            //     }
+            // }
+
+            if (keys.Space.pressed) {
+                if (player.facing === "right" && player.inkMeter >= 10) {
+                    const inkBullet = new InkBullets({ x: player.position.x + 95, y: player.position.y + player.height / 3 }, hiddenCtx, createImage(splatOne));
+                    inkBullet.draw();
+                    setTimeout(() => { keys.Space.pressed = false; }, 1500);
+                  } else if (player.facing === "left" && player.inkMeter >= 10) {
+                    const inkBullet = new InkBullets({ x: player.position.x - 95, y: player.position.y + player.height / 3}, hiddenCtx, createImage(splatTwo));
+                    inkBullet.draw();
+                    setTimeout(() => { keys.Space.pressed = false; }, 1500);
+                  } else {
+                    keys.Space.pressed = false;
+                  }
+            }
+
             if (player.facing === "right" && !player.isJumping) {
                 player.animationDelay++;
                 if (player.animationDelay >= ANIMATE_DELAY) {
@@ -160,42 +203,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (keys.ArrowRight.pressed && player.position.x < 400) {
-                player.velocity.x = 5
+                player.velocity.x = 7
             }
             else if ((keys.ArrowLeft.pressed && player.position.x > 100) 
                     || (keys.ArrowLeft.pressed && scrollOffset === 0)) {
-                player.velocity.x = -5
+                player.velocity.x = -7
             }
             else {
                 player.velocity.x = 0
 
                 if (keys.ArrowRight.pressed) {
-                    scrollOffset += 4
+                    scrollOffset += 6
                     platforms.forEach(platform => {
-                        platform.position.x -= 4
+                        platform.position.x -= 6
                     }) 
                     traps.forEach(trap => {
-                        trap.position.x -=4
+                        trap.position.x -= 6
                     })
                     inks.forEach(ink => {
-                        ink.position.x -=4
+                        ink.position.x -= 6
                     })
                     scenery.forEach(scene => {
-                        scene.position.x -= 3
+                        scene.position.x -= 5
                     })}
                 else if (keys.ArrowLeft.pressed && scrollOffset >= 0) {
-                    scrollOffset -= 4
+                    scrollOffset -= 6
                     platforms.forEach(platform => {
-                        platform.position.x += 4
+                        platform.position.x += 6
                     }) 
                     traps.forEach(trap => {
-                        trap.position.x += 4
+                        trap.position.x += 6
                     })
                     inks.forEach(ink => {
-                        ink.position.x +=4
+                        ink.position.x += 6
                     })
                     scenery.forEach(scene => {
-                        scene.position.x +=3
+                        scene.position.x += 5
                 })}
             }
 
@@ -223,7 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     && player.position.y < ink.position.y + ink.dimensions.height
                     && player.position.y + player.height > ink.position.y) {
                   inks.splice(i, 1);
-                  if (inkLevel < maxInkLevel) inkLevel += 10;
+                  if (inkLevel < maxInkLevel) {
+                    inkLevel += 10;
+                    player.inkMeter += 10
+                  }
                 }
               }
               const percentageRemaining = (inkLevel / maxInkLevel) * 100;
@@ -249,6 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'ArrowUp':
                 keys.ArrowUp.pressed = true
                 break;
+            case ' ':
+                keys.Space.pressed = true;
+                // setTimeout(() => {
+                //     keys.Space.pressed = false;
+                // }, 2000); // 2 seconds delay
+                // console.log("space")
+                // break;
         }
     })
 
@@ -263,6 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'ArrowUp':
                 keys.ArrowUp.pressed = false
                 break;
+            // case ' ':
+            //     keys.Space.pressed = false
+            //     break;
         }
     })
     

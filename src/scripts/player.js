@@ -1,9 +1,12 @@
+// import InkBullets from "./ink_bullets"
+// import splatOne from '../../assests/splat1.png';
+// import splatTwo from '../../assests/splat2.png';
+
 const CONSTANTS = {
     gravity: 0.4,
 }
 
 class Player {
-    
     constructor(position, canvas, ctx, image) {
         this.position = position
         this.velocity = {
@@ -48,7 +51,7 @@ class Player {
 
     jump() {
         if (!this.isJumping) {
-            this.velocity.y = -15
+            this.velocity.y = -11
             this.isJumping = true
         }
     }
@@ -60,6 +63,15 @@ class Player {
             this.isAlive = true
         }
     }
+
+    // shootInk() {
+    //     if (this.facing === "right" && this.inkMeter >= 10) {
+    //         const inkBullet = new InkBullets({x: this.position.x + 10, y: this.position.y},)
+    //     }
+    //     else if (this.facing === "left" && this.inkMeter >= 10) {
+    //         const inkBullet = new InkBullets({x: this.position.x - 10, y: this.position.y})
+    //     }
+    // }
 }
 
 export default Player;

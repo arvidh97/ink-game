@@ -10,8 +10,14 @@ class InkBullets {
         this.image = image
     }
 
-    shoot() {
-        this.ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
-        this.ctx.drawImage(this.image, this.position.x + this.width, this.position.y, this.width, this.height)
+    draw() {
+        this.ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);  
     }
+
+    // shoot() {
+    //     this.ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    //     this.ctx.drawImage(this.image, this.position.x + this.width, this.position.y, this.width, this.height)
+    // }
 }
+
+export default InkBullets;
