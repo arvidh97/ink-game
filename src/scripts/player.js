@@ -51,7 +51,7 @@ class Player {
 
     jump() {
         if (!this.isJumping) {
-            this.velocity.y = -11
+            this.velocity.y = -10
             this.isJumping = true
         }
     }

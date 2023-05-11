@@ -1,4 +1,4 @@
-LInk is classic 2D interactive top-down / side scroller game. In LInk the user will need to navigate through the map using keys to move left and right and to jump, but wait whats this? Some platforms and materials cannot be reached with just the height of jumping! That is why the user will be to pick up ink pallets on the ground to fill up their ink bar. This will allow the user to fill in gaps in the map by 'drawing it in'. With the power of their brain and ink will the user be able to traverse the entirity of the map and reach the end! 
+[LInk](https://github.com/arvidh97/ink-game) is classic 2D interactive top-down / side scroller game. In LInk the user will need to navigate through the map using keys to move left and right and to jump, but wait whats this? Some platforms and materials cannot be reached with just the height of jumping! That is why the user will be to pick up ink pallets on the ground to fill up their ink bar. This will allow the user to fill in gaps in the map by 'drawing it in'. With the power of their brain and ink will the user be able to traverse the entirity of the map and reach the end! 
 
 ![wireframe](./assests/Homepage.png)
 

@@ -30,6 +30,18 @@ const config = {
         ]
       },
       {
+        test: /\.(mp3)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/audio/',
+            },
+          },
+        ],
+      },
+      {
         test: /\.s?[ac]ss$/, // applies to css/scss/sass files
         use: [
           MiniCssExtractPlugin.loader, // create bundled css file

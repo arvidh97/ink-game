@@ -17,6 +17,7 @@ import drywallImage from '../assests/drywall.png';
 import skylineImage from '../assests/cityskyline.png';
 import toonblueeyesImage from '../assests/toonblueeyes.png';
 import spikesImage from '../assests/spikes.png';
+import clintEast from '../assests/audio/clint_east.mp3';
 
 const ANIMATE_DELAY = 15
 
@@ -35,6 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenCanvas.width = 950
     hiddenCanvas.height = 502
 
+    const startGameButton = document.getElementById('start-game')
+    const gameMusic = new Audio(clintEast)
+    gameMusic.autoplay = false
+    startGameButton.addEventListener('click', () => {
+          gameMusic.play();
+    })
+  
     const standing_right = [ghostRight1, ghostRight2]
     const standing_left = [ghostLeft1, ghostLeft2]
 
@@ -145,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
+   
+
     function animate() {
         window.requestAnimationFrame(animate)
             ctx.fillStyle = 'lime';
@@ -156,17 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             gameUpdate();
             player.update();
-
-            // if (keys.Space.pressed) {
-            //     if (player.facing === "right" && player.inkMeter >= 10) {
-            //         const inkBullet = new InkBullets({x: player.position.x + 10, y: player.position.y}, hiddenCtx, createImage(splatOne))
-            //         inkBullet.draw();
-            //     }
-            //     else if (player.facing === "left" && player.inkMeter >= 10) {
-            //         const inkBullet = new InkBullets({x: player.position.x - 10, y: player.position.y}, hiddenCtx, createImage(splatTwo))
-            //         inkBullet.draw();
-            //     }
-            // }
 
             if (keys.Space.pressed) {
                 if (player.facing === "right" && player.inkMeter >= 10) {
@@ -203,42 +202,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (keys.ArrowRight.pressed && player.position.x < 400) {
-                player.velocity.x = 7
+                player.velocity.x = 6
             }
             else if ((keys.ArrowLeft.pressed && player.position.x > 100) 
                     || (keys.ArrowLeft.pressed && scrollOffset === 0)) {
-                player.velocity.x = -7
+                player.velocity.x = -5
             }
             else {
                 player.velocity.x = 0
 
                 if (keys.ArrowRight.pressed) {
-                    scrollOffset += 6
+                    scrollOffset += 4
                     platforms.forEach(platform => {
-                        platform.position.x -= 6
+                        platform.position.x -= 4
                     }) 
                     traps.forEach(trap => {
-                        trap.position.x -= 6
+                        trap.position.x -= 4
                     })
                     inks.forEach(ink => {
-                        ink.position.x -= 6
+                        ink.position.x -= 4
                     })
                     scenery.forEach(scene => {
-                        scene.position.x -= 5
+                        scene.position.x -= 3
                     })}
                 else if (keys.ArrowLeft.pressed && scrollOffset >= 0) {
-                    scrollOffset -= 6
+                    scrollOffset -= 4
                     platforms.forEach(platform => {
-                        platform.position.x += 6
+                        platform.position.x += 4
                     }) 
                     traps.forEach(trap => {
-                        trap.position.x += 6
+                        trap.position.x += 4
                     })
                     inks.forEach(ink => {
-                        ink.position.x += 6
+                        ink.position.x += 4
                     })
                     scenery.forEach(scene => {
-                        scene.position.x += 5
+                        scene.position.x += 3
                 })}
             }
 
