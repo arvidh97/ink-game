@@ -1,70 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" type="image/x-icon" href="/assests/favicon1.png"/>
+    <link rel="icon" type="image/x-icon" href="/assests/favicon1.png" />
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/main.js"></script>
-  <!-- <audio controls autoplay id="game-music">
+    <!-- <audio controls autoplay id="game-music">
       <source src="/assests/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.mp3" type="audio/mpeg">
     </audio> -->
 
     <title>LInk</title>
   </head>
-     
-  <body>
- 
-  <div class="modal">
-    <div class="modal-content">
-      <h2>Welcome to LInk!</h2>
-      <div class="start-tips">
-        <div class="tips-column">
-          <h3>Tips:</h3>
-          <ul>
-            <li>
-              <img src="/assests/ink.png" alt="Ink Icon" class="start-ink-icon">
-              <span class="desc">Collect these to fill up ink bar!</span>
-            </li>
-            <li>
-              <img src="/assests/spikes.png" alt="Spkies Icon" class="spike-icon">
-              <span class="desc">Avoid jumping on these!</span>
-            </li>
-            <li>
-              <img src="/assests/drywall.png" alt="Drywall Icon" class="drywall-icon">
-              <span class="desc">You can jump on these ... sometimes</span>
-            </li>
-          </ul>
-        </div>
-        <div class="play-column">
-          <h3>How to Play:</h3>
-          <ul>
-            <li>
-              <img src="/assests/arrow_keys.png" alt="Arrows Icon" class="arrows-icon">
-              <span class="desc">Use the arrow keys to move around</span>
-            </li>
-            <li>
-              <img src="/assests/ink_bar.png" alt="Ink Bar Pic" class="inkbar-icon">
-              <span class="desc">Once the bar is filled use the space bar to shoot ink!</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <button id="start-game">Start Game</button>
-    </div>
-  </div>
 
-    <h1> <span id='l'>L</span>Ink! </h1>
+  <body>
+    <div class="modal">
+      <div class="modal-content">
+        <h2>Welcome to LInk!</h2>
+        <div class="start-tips">
+          <div class="tips-column">
+            <h3>Tips:</h3>
+            <ul>
+              <li>
+                <img
+                  src="/assests/ink.png"
+                  alt="Ink Icon"
+                  class="start-ink-icon"
+                />
+                <span class="desc">Collect these to fill up ink bar!</span>
+              </li>
+              <li>
+                <img
+                  src="/assests/spikes.png"
+                  alt="Spkies Icon"
+                  class="spike-icon"
+                />
+                <span class="desc">Avoid jumping on these!</span>
+              </li>
+              <li>
+                <img
+                  src="/assests/drywall.png"
+                  alt="Drywall Icon"
+                  class="drywall-icon"
+                />
+                <span class="desc">You can jump on these ... sometimes</span>
+              </li>
+            </ul>
+          </div>
+          <div class="play-column">
+            <h3>How to Play:</h3>
+            <ul>
+              <li>
+                <img
+                  src="/assests/arrow_keys.png"
+                  alt="Arrows Icon"
+                  class="arrows-icon"
+                />
+                <span class="desc">Use the arrow keys to move around</span>
+              </li>
+              <li>
+                <img
+                  src="/assests/ink_bar.png"
+                  alt="Ink Bar Pic"
+                  class="inkbar-icon"
+                />
+                <span class="desc"
+                  >Once the bar is filled use the space bar to shoot ink!</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button id="start-game">Start Game</button>
+      </div>
+    </div>
+
+    <h1><span id="l">L</span>Ink!</h1>
     <canvas id="game-canvas"></canvas>
     <canvas id="hidden-canvas"></canvas>
     <div class="ink-bar">
-      <img src="/assests/ink.png" alt="Ink icon" class="ink-icon">
-      <div class="ink-full">
-      </div>
-    </div> 
+      <img src="./assests/ink.png" alt="Ink icon" class="ink-icon" />
+      <div class="ink-full"></div>
+    </div>
     <script src="./src/scripts/modals.js"></script>
   </body>
-
 </html>
